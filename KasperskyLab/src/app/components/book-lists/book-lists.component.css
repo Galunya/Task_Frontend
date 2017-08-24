@@ -1,0 +1,157 @@
+body {
+    padding: 2em;
+}
+
+.flexWrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.flexWrapper .sendButton.createBook {
+    background: green;
+    font-size: 14px;
+}
+
+table.table {
+    width: 100%;
+}
+
+.table th {
+    display: flex;
+    justify-content: center;
+    padding: 0.25em;
+}
+
+.table td {
+    word-break: break-all;
+    text-align: left;
+    padding: 0.25em;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+    display: flex;
+    justify-content: space-around;
+}
+
+td.edit-buttons {
+    text-align: right;
+}
+
+button {
+    border-radius: 3px;
+    border: none;
+    margin: 0 0.25em;
+    transition: all 0.3s;
+}
+
+button:hover {
+    box-shadow: 0 0 4px rgba(3, 3, 3, 0.8);
+    opacity: 0.9;
+}
+
+button.edit {
+    background: #6F9;
+}
+
+button.delete {
+    background: #F69;
+}
+
+tr {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+
+}
+
+td, th {
+    flex: 1 1 150px;
+    border: 0.5px solid rgba(3, 3, 3, 0.2);
+    border-top: 0;
+    border-left: 0;
+}
+
+th {
+    border-top: 0.5px solid rgba(3, 3, 3, 0.2);
+}
+
+td:first-child, th:first-child {
+    border-left: 0.5px solid rgba(3, 3, 3, 0.2);
+}
+
+th.row {
+    cursor: pointer;
+}
+
+th.row:after {
+    width: 15px;
+    position: relative;
+    top: -2px;
+    font-size: 26px;
+    text-align: center;
+    margin-left: 5px;
+    display: inline-block;
+    content: '';
+}
+
+th.row.up:after {
+    content: "\2191";
+}
+
+th.row.down:after {
+    content: "\2193";
+}
+
+.sendButton {
+    padding: 8px 16px;
+    border: none;
+    background: #362fa4;
+    color: #f2f2f2;
+    text-transform: uppercase;
+    letter-spacing: .09em;
+    border-radius: 2px;
+    margin-top: 10px;
+    cursor: pointer;
+    font-size: 0.4em;
+    text-decoration: none;
+}
+
+.sendButton.delete {
+    background: red;
+}
+
+@media screen and (max-width: 1405px) {
+
+    .sendButton {
+        font-size: 0.4em;
+    }
+}
+
+@media screen and (max-width: 1120px) {
+    td, th {
+        font-size: 0.7em;
+    }
+    th.row:after {
+        font-size: 1.3em;
+    }
+    .sendButton {
+        font-size: 0.3em;
+    }
+
+
+}
+
+@media screen and (max-width: 910px) {
+    td:last-child, th:last-child {
+        display: none !important;
+    }
+
+    td, th,th.row:after {
+        font-size: 0.4em;
+    }
+   th.row:after {
+       font-size: 1em;
+    }
+}

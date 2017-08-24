@@ -1,0 +1,105 @@
+<div class="container">
+  <span class="close" (click)="close();"></span>
+  <div class="wrapper">
+    <h1>Добавить книгу</h1>
+  </div>
+  <form [formGroup]="formCreate"
+        (ngSubmit)="onSubmit()">
+    <ul class="flex-outer">
+      <li>
+        <input type="text" formControlName="title" placeholder="Заголовок*">
+        <label class="error" *ngIf="!formCreate.controls['title'].valid && formCreate.controls['title'].dirty">Поле
+          обязательно, не более 30 символов</label>
+      </li>
+
+      <li>
+        <h2>Список авторов</h2>
+        <label class="error" *ngIf="formCreate.get('authors').controls.length<1 ">Книга должна содержать хотя бы
+          одного автора</label>
+        <ul class="flex-inner list-authors" formArrayName="authors"
+            *ngFor="let item of formCreate.get('authors').controls; let i = index;">
+          <li class="author-info" [formGroupName]="i">
+
+            <span class="fioAuthor">{{item.value.name}} {{item.value.surname}}</span>
+            <span class="sendButton edit" type="button" (click)="editAuthor(item);">Редактировать</span>
+            <span class="sendButton delete" type="button" (click)="deleteAuthor(i);">Удалить</span>
+          </li>
+
+        </ul>
+
+        <ul class="flex-inner form-add">
+          <h3 class="margin_0 margin_buttom_05">Добавить автора</h3>
+          <li>
+            <input type="text" [(ngModel)]="nameAuthor" [ngModelOptions]="{standalone: true}"
+                   (keypress)="changed($event.target.value)" placeholder="Имя автора*">
+            <input type="text" [(ngModel)]="surnameAuthor" [ngModelOptions]="{standalone: true}"
+                   (keypress)="changed($event.target.value)" placeholder="Фамилия автора*">
+            <label class="error" [ngClass]="{'hidden':!incorrectAuthor }">Поля обязательны, имя и фамилия не
+              более 20
+              символов</label>
+          </li>
+          <li>
+                        <span class="sendButton sendData"
+                              [ngClass]="{'disabled':incorrectAuthor || !nameAuthor|| nameAuthor?.length==0 ||!surnameAuthor|| surnameAuthor?.length==0 }"
+                              (click)="addAuthor();">Сохранить</span>
+          </li>
+        </ul>
+      </li>
+
+
+      <li>
+        <input type="text" formControlName="numberOfPage" appNumber placeholder="Количество страниц*">
+        <label class="error"
+               *ngIf="!formCreate.controls['numberOfPage'].valid && formCreate.controls['numberOfPage'].dirty">Поле
+          обязательно, больше 0 и не
+          более 10000</label>
+      </li>
+      <li>
+        <input type="text" formControlName="publisherName" placeholder="Название издательства">
+        <label class="error" *ngIf="!formCreate.controls['publisherName'].valid">Не более 30 символов</label>
+      </li>
+      <li>
+        <input type="text" formControlName="yearOfPublication" appNumber placeholder="Год публикации">
+        <label class="error" *ngIf="!formCreate.controls['yearOfPublication'].valid">Не раньше 1800</label>
+      </li>
+      <li>
+        <input type="date" formControlName="releaseDate" placeholder="Дата выхода в тираж">
+        <label class="error" *ngIf="!formCreate.controls['releaseDate'].valid">Не раньше 01.01.1800</label>
+      </li>
+      <li>
+        <input type="text" formControlName="ISBN" placeholder="ISBN">
+        <label class="error" *ngIf="!formCreate.controls['ISBN'].valid && formCreate.controls['ISBN'].dirty">Неверный
+          код</label>
+      </li>
+      <li class="wrapper-image">
+        <label class="photo-loader" for="uploadBannerImage">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 85.01 66.61" class="icon">
+            <defs>
+              <style>.cls-1 {
+                fill: none;
+                stroke: #000000;
+                stroke-miterlimit: 10;
+                stroke-width: 2px;
+              }</style>
+            </defs>
+            <circle class="cls-1" cx="42.5" cy="35.4" r="20.4"/>
+            <path class="cls-1"
+                  d="M72,8H61.19V4a3,3,0,0,0-3-3H27.39a3,3,0,0,0-3,3V8H13A12,12,0,0,0,1,20V53.61a12,12,0,0,0,12,12H72a12,12,0,0,0,12-12V20A12,12,0,0,0,72,8Z"/>
+          </svg>
+          Загрузить изображение
+        </label>
+
+        <input type='file' [(ngModel)]="imageFile" [ngModelOptions]="{standalone: true}"  id="uploadBannerImage" (change)="readURL($event);"/>
+        <input type='text' hidden  formControlName="image" />
+        <div class="wrapper-image-item" >
+          <span *ngIf="tempImage" class="close" (click)="clearImage();"></span>
+          <img  class="item-image" src="{{tempImage?tempImage:dummyImage}}">
+        </div>
+      </li>
+
+      <li>
+        <button class="sendButton" type="submit" [disabled]="!formCreate.valid || formCreate.get('authors').controls.length<1">Сохранить</button>
+      </li>
+    </ul>
+  </form>
+</div>

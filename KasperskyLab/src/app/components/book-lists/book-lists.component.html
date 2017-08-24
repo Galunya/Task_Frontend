@@ -1,0 +1,40 @@
+<div class="flexWrapper">
+    <h1>Список книг</h1>
+    <a class="sendButton createBook" routerLink="/add-book" routerLinkActive="active-link">Создать новую книгу</a>
+</div>
+<table class="table">
+    <tr>
+        <th class="row" [ngClass]="{' up': filter.isActivColumn=='title' && filter.directionUp ,
+        'down':  filter.isActivColumn=='title' && !filter.directionUp}"
+            (click)="setFilter('title')"
+        >Заголовок
+        </th>
+        <th>Авторы</th>
+        <th>Количество страни</th>
+        <th>Название издательства</th>
+        <th class="row" [ngClass]="{' up': filter.isActivColumn=='yearOfPublication' && filter.directionUp ,
+        'down':  filter.isActivColumn=='yearOfPublication' && !filter.directionUp}"
+            (click)="setFilter('yearOfPublication')">Год публикации
+        </th>
+        <th>Дата выхода в тираж</th>
+        <th>ISBN</th>
+        <th>Действия</th>
+    </tr>
+    <tr *ngFor="let item of bookList | filterColumn : filter.directionUp :filter.columnFilter; let i = index;">
+        <td>{{item.title}}</td>
+        <td>
+            <ul>
+                <li *ngFor="let author of item.authors; let ind = index;"> {{author.name}} {{author.surname}}</li>
+            </ul>
+        </td>
+        <td>{{item.numberOfPage}}</td>
+        <td>{{item.publisherName}}</td>
+        <td>{{item.yearOfPublication}}</td>
+        <td>{{item.releaseDate| date:"dd.MM.yyyy"}}</td>
+        <td>{{item.ISBN}}</td>
+        <td class="edit-buttons">
+            <a class="sendButton" routerLink="/edit-book/{{item.id}}" routerLinkActive="active-link">Edit</a>
+            <span class="sendButton delete" (click)="deleteItem(item.id)">Delete</span></td>
+    </tr>
+
+</table>

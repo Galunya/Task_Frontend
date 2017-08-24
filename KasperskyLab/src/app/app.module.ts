@@ -12,18 +12,15 @@ import { NumberDirective } from './directives/number.directive';
 import {ConfigService} from "./services/config.service";
 import { EditBookComponent } from './components/edit-book/edit-book.component';
 import { FilterColumnPipe } from './pipes/filter-column.pipe';
+import { InputFlexComponent } from './components/input-flex/input-flex.component';
 
-export function loadConfig(config:ConfigService) {
+export function loadConfig(config:ConfigService, bookService:BookService) {
     let that = this;
     return () => {
         config.get().subscribe(res => {
-                console.log("Ура")
-                console.log(res)
-
+                bookService.setBooks(res);
             },
             err => {
-                console.log("err")
-                console.log(err)
             });
 
 
@@ -38,6 +35,7 @@ export function loadConfig(config:ConfigService) {
         NumberDirective,
         EditBookComponent,
         FilterColumnPipe,
+        InputFlexComponent,
     ],
     imports: [
         BrowserModule,
@@ -48,7 +46,7 @@ export function loadConfig(config:ConfigService) {
     providers: [BookService, ConfigService, {
         provide: APP_INITIALIZER,
         useFactory: loadConfig,
-        deps: [ConfigService],
+        deps: [ConfigService,BookService],
         multi: true
     }],
     bootstrap: [AppComponent]

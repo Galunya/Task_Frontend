@@ -15,10 +15,11 @@ export class BookListsComponent implements OnInit {
 
     constructor(private configService:ConfigService,
                 private bookService:BookService) {
-        this.bookList = this.bookService.getBooks();
+
     }
 
     ngOnInit() {
+        this.bookList = this.bookService.getBooks();
         this.filter = this.configService.getFilter();
         if (!this.filter)
             this.filter = new Filter(null);

@@ -7,7 +7,9 @@ body {
     justify-content: space-between;
     align-items: baseline;
 }
-
+.flexWrapper a,.flexWrapper a:active,.flexWrapper a:focus{
+    color: black;
+}
 .flexWrapper .sendButton.createBook {
     background: green;
     font-size: 14px;
@@ -88,8 +90,6 @@ th.row {
 th.row:after {
     width: 15px;
     position: relative;
-    top: -2px;
-    font-size: 26px;
     text-align: center;
     margin-left: 5px;
     display: inline-block;
